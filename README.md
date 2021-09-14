@@ -1,4 +1,53 @@
 # Next.jsでuseEffect,async await axios.getでデータ取得
+<img src="home.png">
+
+
+```js
+const Home: NextPage = () => {
+
+  type props = {
+    title: string
+    imageUrl: string
+    explanation: string
+    prioptionce: string
+    price: string
+  }
+
+const [hoge,setHoge]=useState<Array<props>>([]);
+
+const test =  async() => {
+  const MetaData = await axios.get("https://abe-masafumi.github.io/TestMetaData/MetaData.json");
+  setHoge(MetaData.data)
+  return MetaData.data;
+} 
+
+useEffect(()=>{
+  (async()=>{
+    const data= await test();
+    console.log(data)
+  })()
+},[])
+
+  return (
+    <div className={styles.container}>
+
+        {
+          hoge.map((item, index) => (
+           <li key={index}>
+             <img src={item.imageUrl} />
+              <p>{item.title}</p>
+              <p>{item.explanation}</p>
+              <p>{item.price}</p>
+              <p>{item.prioptionce}</p>
+            </li>
+          ))
+        }
+    </div>
+  )
+}
+
+export default Home
+```
 
 
 
